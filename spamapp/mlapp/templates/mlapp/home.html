@@ -1,0 +1,95 @@
+<!-- E:\spamapp\mlapp\templates\mlapp\home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Detection App</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4; /* Light gray background */
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px; /* Increased max width */
+            margin: auto;
+            background: #ffffff; /* White background for the container */
+            padding: 30px; /* Increased padding */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+        h1 {
+            text-align: center;
+            color: #007bff; /* Blue color for the heading */
+        }
+        .form-group {
+            margin-bottom: 20px; /* Increased space between elements */
+        }
+        textarea {
+            width: 100%;
+            height: 150px; /* Increased height for the textarea */
+            padding: 15px; /* Increased padding inside textarea */
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 18px; /* Increased font size */
+            resize: none; /* Disable resizing */
+        }
+        button {
+            width: 100%;
+            padding: 15px; /* Increased button padding */
+            background-color: #28a745; /* Green button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px; /* Increased font size */
+        }
+        button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+        .alert {
+            padding: 20px; /* Increased padding for alert box */
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .alert-danger {
+            background-color: #f8d7da; /* Light red */
+            color: #721c24; /* Dark red */
+        }
+        .alert-success {
+            background-color: #d4edda; /* Light green */
+            color: #155724; /* Dark green */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spam Detection App</h1>
+        <p style="text-align:center;">Enter your message below to check if it's spam.</p>
+
+        <!-- Form for user input -->
+        <form action="{% url 'some_view' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <textarea name="message" placeholder="Enter your message here..." required></textarea>
+            </div>
+            <button type="submit">Check for Spam</button>
+        </form>
+
+        <!-- Display prediction result below the form -->
+        {% if result %}
+            <div class="alert alert-{{ alert_class }}">
+                <strong>Prediction:</strong> {{ result }}<br>
+                <strong>Probability:</strong> {{ probability|floatformat:2 }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer Section -->
+    <footer style="margin-top: 20px; text-align:center;">
+        <p>&copy; 2024 Spam Detection App.</p> <!-- Updated footer text -->
+    </footer>
+</body>
+</html>
